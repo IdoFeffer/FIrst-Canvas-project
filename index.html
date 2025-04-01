@@ -30,29 +30,40 @@
         <option value="2">Square</option>
       </select>
 
-      
       <!-- BRUSH SIZE  -->
       <select
-      name=""
-      id="brushSize"
-      class="brush-size"
-      onchange="onSetSize(event)"
+        name=""
+        id="brushSize"
+        class="brush-size"
+        onchange="onSetSize(event)"
       >
-      <option value="5">5</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="10">10</option>
-      <option value="20">20</option>
-    </select>
-</section>
+        <option value="5">5</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </section>
 
-<div>
-  <p class="shape-title">square</p>
-</div>
+    <div>
+      <p class="shape-title">square</p>
+    </div>
 
-<img src="img/smile1.jpeg" alt="" class="selectable-image"" onchange="isActive(event)">
-<img src="img/smile2.jpeg" alt="" class="selectable-image"" onchange="isActive(event)">
-<img src="img/smile3.jpeg" alt="" class="selectable-image"" onchange="isActive(event)">
+    <!-- smilies -->
+    <input
+      type="file"
+      accept="image/*"
+      id="imageInput"
+      onchange="onImgInput(event)"
+    />
+
+    <div>
+      <img src="img/smile1.jpeg" alt="" class="selectable-image""
+      onclick="isActive(event)"> <img src="img/smile2.jpeg" alt=""
+      class="selectable-image"" onclick="isActive(event)"> <img
+      src="img/smile3.jpeg" alt="" class="selectable-image""
+      onclick="isActive(event)">
+    </div>
 
     <!-- CANVAS  -->
     <div class="canvas-container">

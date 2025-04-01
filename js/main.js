@@ -2,6 +2,7 @@
 var gCurrShape = "rect"
 var gLastPos
 var gElImg
+var selectedImage = null
 
 var gElCanvas = document.getElementById("myCanvas")
 var gCtx
@@ -22,7 +23,8 @@ function onInit() {
     "touchmove",
     function (event) {
       event.preventDefault()
-    }, { passive: false }
+    },
+    { passive: false }
   )
 }
 
@@ -46,7 +48,7 @@ function onDown(ev) {
   gIsMouseDown = true
   const pos = getEvPos(ev)
   gLastPos = pos
-//   onDraw(ev)
+  //   onDraw(ev)
 }
 
 function onUp() {
@@ -99,6 +101,7 @@ function onClearCanvas() {
 
 // get pos
 function getEvPos(ev) {
+  const canvasRect = gElCanvas.getBoundingClientRect();
   const TOUCH_EVS = ["touchstart", "touchmove", "touchend"]
 
   let pos = {
@@ -109,8 +112,8 @@ function getEvPos(ev) {
   if (TOUCH_EVS.includes(ev.type)) {
     //* Prevent triggering the default mouse behavior
     if (!gIsMouseDown) {
-        ev.preventDefault();
-      }
+      ev.preventDefault()
+    }
     //* Gets the first touch point (could be multiple in touch event)
     ev = ev.changedTouches[0]
 
@@ -144,19 +147,49 @@ function onDownloadCanvas(elLink) {
 
 function resizeCanvas() {
   const elContainer = document.querySelector(".canvas-container")
-  gElCanvas.width = elContainer.clientWidth;
+  gElCanvas.width = elContainer.clientWidth
 
   if (gElImg) {
-    gElCanvas.height = (gElImg.naturalHeight / gElImg.naturalWidth) * gElCanvas.width;
+    gElCanvas.height =
+      (gElImg.naturalHeight / gElImg.naturalWidth) * gElCanvas.width
   } else {
-    gElCanvas.height = gElCanvas.width;
+    gElCanvas.height = gElCanvas.width
   }
 }
 
 // img
 function onImgInput(ev) {
   loadImageFromInput(ev, renderImg)
+
+  const file = ev.target.files[0]
+
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = function (e) {
+      selectedImage = new Image()
+      selectedImage.sec = e.target.result
+      selectedImage.onload = function () {
+        console.log("Image onload:", selectedImage)
+      }
+    }
+    reader.readAsDataURL(file)
+  }
 }
+
+function selectImage(imageSrc) {
+  selectedImage = new Image();
+  selectedImage.src = imageSrc;
+  selectedImage.onload = function () {
+    console.log("Selected Image:", selectedImage);
+  };
+}
+gElCanvas.addEventListener("click", function (ev) {
+  if (selectedImage) {
+    const pos = getEvPos(ev);
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);  // לנקות את הקנבס קודם
+    gCtx.drawImage(selectedImage, pos.x - 25, pos.y - 25, 50, 50);  // מציבים את התמונה בקואורדינטות שנבחרו
+  }
+});
 
 function loadImageFromInput(ev, onImageReady) {
   document.querySelector(".share-container").innerHTML = ""
@@ -223,8 +256,10 @@ async function uploadImg(imgData, onSuccess) {
   }
 }
 
+function isActive(ev) {
+  const elActivePic = ev.target
 
-function isActive(ev){
-  const elActivePic = document.querySelector('.selectable-image')
   console.log(elActivePic)
+
+  elActivePic.style.border = "2px solid black"
 }
