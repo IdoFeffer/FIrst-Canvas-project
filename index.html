@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body onload="onInit()">
+    <h1>
+      Canvas project
+      <button onclick="onClearCanvas()">Clear</button>
+    </h1>
+
+    <!-- download  -->
+    <a href="#" onclick="onDownloadCanvas(this)" download>Download</a>
+
+    <section>
+      <!-- COLOR -->
+      <input
+        type="color"
+        id="colorPicker"
+        class="color-picker"
+        onchange="onSetColor(event)"
+      />
+
+      <!-- CHOOSE SHAPE -->
+      <select name="" id="" class="shape" onchange="onSetShape(event)">
+        <option value="1">Circle</option>
+        <option value="2">Square</option>
+      </select>
+
+      
+      <!-- BRUSH SIZE  -->
+      <select
+      name=""
+      id="brushSize"
+      class="brush-size"
+      onchange="onSetSize(event)"
+      >
+      <option value="5">5</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+</section>
+<div>
+  <p class="shape-title">square</p>
+</div>
+
+    <!-- CANVAS  -->
+    <div class="canvas-container">
+      <canvas
+        width="400"
+        height="400"
+        onmousedown="onDown(event)"
+        ontouchstart="onDown(event)"
+        onmouseup="onUp()"
+        ontouchend="onUp()"
+        onmousemove="onDraw(event)"
+        ontouchmove="onDraw(event)"
+      >
+      </canvas>
+    </div>
+
+    <!-- background img  -->
+    <section class="select-img-container">
+      <h3>Select an image as background</h3>
+      <input
+        type="file"
+        accept=".jpg, .jpeg, .png, .webp"
+        id="imageInput"
+        onchange="onImgInput(event)"
+      />
+    </section>
+    <hr />
+
+    <div class="share-container"></div>
+    <!-- UPLOAD TO Cloudinary -->
+    <form
+      action=""
+      method="POST"
+      enctype="multipart/form-data"
+      onsubmit="onUploadImg(event)"
+    >
+      <input name="img" id="imgData" type="hidden" />
+      <button class="btn" type="submit">Upload to Cloudinary</button>
+    </form>
+
+    <!-- <div>
+        <p class="shape-title">square</p>
+    </div> -->
+
+    <script src="js/main.js"></script>
+  </body>
+</html>
