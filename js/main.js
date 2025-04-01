@@ -222,3 +222,9 @@ async function uploadImg(imgData, onSuccess) {
     console.log(err)
   }
 }
+
+
+function isActive(ev){
+  const elActivePic = document.querySelector('.selectable-image')
+  console.log(elActivePic)
+}
