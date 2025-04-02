@@ -10,6 +10,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 90%;
+    margin: 10 auto;
+    border: 1px solid black;
+
 }
 
 canvas {
@@ -18,11 +23,6 @@ canvas {
     width: 100%;
 }
 
-.canvas-container {
-    width: 90%;
-    margin: 10 auto;
-    border: 1px solid black;
-}
 
 .selectable-image {
     width: 10%;
